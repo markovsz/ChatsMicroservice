@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messager.Chats.Domain.Core"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messager.Chats.Domain.Interfaces", "Messager.Chats.Domain.Interfaces\Messager.Chats.Domain.Interfaces.csproj", "{C1F9BAF4-CB3A-46F0-9CBA-CFD944D74FA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messager.Chats.Application.Services", "Messager.Chats.Application.Services\Messager.Chats.Application.Services.csproj", "{4B7B3F80-1C4A-4B8E-BFBC-8A07431AF5F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messager.Chats.Application.Services", "Messager.Chats.Application.Services\Messager.Chats.Application.Services.csproj", "{4B7B3F80-1C4A-4B8E-BFBC-8A07431AF5F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messager.Chats.Infrastructure.Data", "Messager.Chats.Infrastructure.Data\Messager.Chats.Infrastructure.Data.csproj", "{8939453E-AA5E-4F97-93BE-2B227CB2DDA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messager.Chats.Infrastructure.Services", "Messager.Chats.Infrastructure.Services\Messager.Chats.Infrastructure.Services.csproj", "{98830701-742E-4004-805A-A15EA75F886D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{4B7B3F80-1C4A-4B8E-BFBC-8A07431AF5F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B7B3F80-1C4A-4B8E-BFBC-8A07431AF5F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B7B3F80-1C4A-4B8E-BFBC-8A07431AF5F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8939453E-AA5E-4F97-93BE-2B227CB2DDA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8939453E-AA5E-4F97-93BE-2B227CB2DDA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8939453E-AA5E-4F97-93BE-2B227CB2DDA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8939453E-AA5E-4F97-93BE-2B227CB2DDA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98830701-742E-4004-805A-A15EA75F886D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98830701-742E-4004-805A-A15EA75F886D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98830701-742E-4004-805A-A15EA75F886D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98830701-742E-4004-805A-A15EA75F886D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
