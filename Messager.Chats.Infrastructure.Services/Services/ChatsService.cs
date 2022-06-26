@@ -20,14 +20,15 @@ namespace Messager.Chats.Infrastructure.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<Guid> CreateChatAsync(ChatForReadDto chatDto)
+        public async Task<Guid> CreateChatAsync(Guid userId, ChatForCreateDto chatDto)
         {
             var chat = _mapper.Map<Chat>(chatDto);
             await _repositoryManager.Chats.CreateChatAsync(chat);
             await _repositoryManager.SaveAsync();
+            var chatMember = new ChatMember(userId, chat.Id);
+            await _repositoryManager.ChatMembers.AddChatMemberAsync(chatMember);
             return chat.Id;
         }
-
 
         public async Task DeleteChatByIdAsync(Guid chatId)
         {
@@ -42,7 +43,6 @@ namespace Messager.Chats.Infrastructure.Services.Services
             var chatDto = _mapper.Map<ChatForReadDto>(chat);
             return chatDto;
         }
-            
 
         public async Task<IEnumerable<ChatForReadDto>> GetChatsAsync()
         {
@@ -61,17 +61,14 @@ namespace Messager.Chats.Infrastructure.Services.Services
         public async Task JoinChatAsync(Guid userId, string invitationKey)
         {
             var chat = await _repositoryManager.Chats.GetChatByInvitaionKeyAsync(invitationKey, false);
-            ChatMember chatMember = new ChatMember();
-            chatMember.ChatId = chat.Id;
-            chatMember.EntryTime = DateTime.Now;
-            chatMember.UserId = userId;
+            var chatMember = new ChatMember(userId, chat.Id);
             await _repositoryManager.ChatMembers.AddChatMemberAsync(chatMember);
             await _repositoryManager.SaveAsync();
         }
 
         public async Task LeaveChatAsync(Guid userId, Guid chatId)
         {
-            var chatMember = await _repositoryManager.ChatMembers.GetChatMemberByUserIdAsync(userId, false);
+            var chatMember = await _repositoryManager.ChatMembers.GetChatMemberByUserIdAsync(chatId, userId, false);
             _repositoryManager.ChatMembers.DeleteChatMember(chatMember);
             await _repositoryManager.SaveAsync();
         }

@@ -20,11 +20,12 @@ namespace Messager.Chats.Infrastructure.Services.Services
             _mapper = mapper;
         }
 
-        public async Task CreateMessage(MessageForCreateDto messageDto)
+        public async Task<Guid> CreateMessageAsync(MessageForCreateDto messageDto)
         {
             var message = _mapper.Map<Message>(messageDto);
             await _repositoryManager.Messages.CreateMessageAsync(message);
             await _repositoryManager.SaveAsync();
+            return message.Id;
         }
 
         public async Task DeleteMessageByIdAsync(Guid messageId)
@@ -55,9 +56,10 @@ namespace Messager.Chats.Infrastructure.Services.Services
             return messageDto;
         }
 
-        public void UpdateMessage(MessageForUpdateDto messageDto)
+        public void UpdateMessage(Guid messageId, MessageForUpdateDto messageDto)
         {
             var message = _mapper.Map<Message>(messageDto);
+            message.Id = messageId;
             _repositoryManager.Messages.UpdateMessage(message);
             _repositoryManager.SaveAsync();
         }

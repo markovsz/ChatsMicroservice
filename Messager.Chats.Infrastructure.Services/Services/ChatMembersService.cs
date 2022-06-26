@@ -20,23 +20,24 @@ namespace Messager.Chats.Infrastructure.Services.Services
             _mapper = mapper;
         }
 
-        public async Task AddChatMemberAsync(ChatMemberForCreateDto chatMemberDto)
+        public async Task<Guid> AddChatMemberAsync(ChatMemberForCreateDto chatMemberDto)
         {
             var chatMember = _mapper.Map<ChatMember>(chatMemberDto);
             await _repositoryManager.ChatMembers.AddChatMemberAsync(chatMember);
             await _repositoryManager.SaveAsync();
+            return chatMember.UserId;
         }
 
-        public async Task DeleteChatMemberByUserIdAsync(Guid userId)
+        public async Task DeleteChatMemberByUserIdAsync(Guid chatId, Guid userId)
         {
-            var chatMember = await _repositoryManager.ChatMembers.GetChatMemberByUserIdAsync(userId, false);
+            var chatMember = await _repositoryManager.ChatMembers.GetChatMemberByUserIdAsync(chatId, userId, false);
             _repositoryManager.ChatMembers.DeleteChatMember(chatMember);
             await _repositoryManager.SaveAsync();
         }
 
-        public async Task<ChatMemberForReadDto> GetChatMemberByUserIdAsync(Guid userId)
+        public async Task<ChatMemberForReadDto> GetChatMemberByUserIdAsync(Guid chatId, Guid userId)
         {
-            var chatMember = await _repositoryManager.ChatMembers.GetChatMemberByUserIdAsync(userId, false);
+            var chatMember = await _repositoryManager.ChatMembers.GetChatMemberByUserIdAsync(chatId, userId, false);
             var chatMemberDto = _mapper.Map<ChatMemberForReadDto>(chatMember);
             return chatMemberDto;
         }
