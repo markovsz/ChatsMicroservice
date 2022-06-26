@@ -10,8 +10,8 @@ namespace Messager.Chats.Domain.Interfaces.Repositories
     public interface IRepositoryBase<T>
     {
         Task CreateAsync(T entity);
-        Task<IQueryable<T>> FindAll(bool trackChanges);
-        Task<IQueryable<T>> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges);
+        IQueryable<T> FindAll(bool trackChanges);
+        IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges);
         void Update(T entity);
         void Delete(T entity);
     }

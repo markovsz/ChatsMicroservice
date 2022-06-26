@@ -25,10 +25,16 @@ namespace Messager.Chats.Infrastructure.Data
                 .HasKey(c => c.Id);
 
             modelBuilder.Entity<Message>()
+                .HasKey(m => m.Id);
+
+            modelBuilder.Entity<Message>()
                 .HasOne(m => m.MessageChat)
                 .WithMany(c => c.ChatMessages)
                 .HasForeignKey(m => m.ChatId)
                 .OnDelete(DeleteBehavior.Cascade); /*!*/
+
+            modelBuilder.Entity<ChatMember>()
+                .HasKey(cm => cm.UserId);
 
             modelBuilder.Entity<ChatMember>()
                 .HasOne(cm => cm.UserChat)
