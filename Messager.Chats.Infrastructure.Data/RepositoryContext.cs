@@ -31,7 +31,7 @@ namespace Messager.Chats.Infrastructure.Data
                 .OnDelete(DeleteBehavior.Cascade); /*!*/
 
             modelBuilder.Entity<ChatMember>()
-                .HasOne(cm => cm.CustomerChat)
+                .HasOne(cm => cm.UserChat)
                 .WithMany(c => c.ChatMembers)
                 .HasForeignKey(cm => cm.ChatId)
                 .OnDelete(DeleteBehavior.Cascade);

@@ -11,8 +11,8 @@ namespace Messager.Chats.Application.Services.Services
     {
         Task AddChatMemberAsync(ChatMemberForCreateDto chatMember);
         Task<IEnumerable<ChatMemberForReadDto>> GetChatMembersAsync(Guid chatId);
-        Task<ChatMemberForReadDto> GetChatMemberByCustomerIdAsync(Guid customerId);
-        Task DeleteChatMemberByCustomerIdAsync(Guid customerId);
+        Task<ChatMemberForReadDto> GetChatMemberByUserIdAsync(Guid userId);
+        Task DeleteChatMemberByUserIdAsync(Guid userId);
 
     }
 }

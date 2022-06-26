@@ -21,21 +21,21 @@ namespace ChatsMicroservice.Controllers
         }
 
         [HttpPost("join/{invitationKey}")]
-        public async Task<IActionResult> JoinChatAsync(Guid customerId, string invitationKey)
+        public async Task<IActionResult> JoinChatAsync(Guid userId, string invitationKey)
         {
-            await _chatsService.JoinChatAsync(customerId, invitationKey);
+            await _chatsService.JoinChatAsync(userId, invitationKey);
             return Ok();
         }
 
         [HttpPost("leave/{chatId}")]
-        public async Task<IActionResult> LeaveChatAsync(Guid customerId, Guid chatId)
+        public async Task<IActionResult> LeaveChatAsync(Guid userId, Guid chatId)
         {
-            await _chatsService.LeaveChatAsync(customerId, chatId);
+            await _chatsService.LeaveChatAsync(userId, chatId);
             return Ok();
         }
 
         [HttpPost()]
-        public async Task<IActionResult> CreateChatAsync([FromBody] ChatForReadDto chatDto, Guid customerId)
+        public async Task<IActionResult> CreateChatAsync([FromBody] ChatForReadDto chatDto, Guid userId)
         {
             var chatId = await _chatsService.CreateChatAsync(chatDto);
             return CreatedAtRoute("GetChat", new { id = chatId });
@@ -50,9 +50,9 @@ namespace ChatsMicroservice.Controllers
 
 
         [HttpGet()]
-        public async Task<IActionResult> GetCustomerChatsAsync(Guid customerId)
+        public async Task<IActionResult> GetUserChatsAsync(Guid userId)
         {
-            var chats = await _chatsService.GetCustomerChatsAsync(customerId);
+            var chats = await _chatsService.GetUserChatsAsync(userId);
             return Ok(chats);
         }
 

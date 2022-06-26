@@ -35,10 +35,10 @@ namespace Messager.Chats.Infrastructure.Data.Repository
             await FindAll(false)
             .ToListAsync();
 
-        public async Task<IEnumerable<Chat>> GetCustomerChatsAsync(Guid customerId, bool trackChanges) =>
+        public async Task<IEnumerable<Chat>> GetUserChatsAsync(Guid userId, bool trackChanges) =>
             await FindAll(false)
             .Include(c => c.ChatMembers)
-            .Where(c => c.ChatMembers.Where(cm => cm.CustomerId.Equals(customerId)).Count() > 0)
+            .Where(c => c.ChatMembers.Where(cm => cm.UserId.Equals(userId)).Count() > 0)
             .ToListAsync();
 
         public void UpdateChat(Chat chat) =>

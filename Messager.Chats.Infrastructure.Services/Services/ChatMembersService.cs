@@ -27,16 +27,16 @@ namespace Messager.Chats.Infrastructure.Services.Services
             await _repositoryManager.SaveAsync();
         }
 
-        public async Task DeleteChatMemberByCustomerIdAsync(Guid customerId)
+        public async Task DeleteChatMemberByUserIdAsync(Guid userId)
         {
-            var chatMember = await _repositoryManager.ChatMembers.GetChatMemberByCustomerIdAsync(customerId, false);
+            var chatMember = await _repositoryManager.ChatMembers.GetChatMemberByUserIdAsync(userId, false);
             _repositoryManager.ChatMembers.DeleteChatMember(chatMember);
             await _repositoryManager.SaveAsync();
         }
 
-        public async Task<ChatMemberForReadDto> GetChatMemberByCustomerIdAsync(Guid customerId)
+        public async Task<ChatMemberForReadDto> GetChatMemberByUserIdAsync(Guid userId)
         {
-            var chatMember = await _repositoryManager.ChatMembers.GetChatMemberByCustomerIdAsync(customerId, false);
+            var chatMember = await _repositoryManager.ChatMembers.GetChatMemberByUserIdAsync(userId, false);
             var chatMemberDto = _mapper.Map<ChatMemberForReadDto>(chatMember);
             return chatMemberDto;
         }

@@ -26,8 +26,8 @@ namespace Messager.Chats.Infrastructure.Data.Repository
             await FindByCondition(cm => cm.ChatId.Equals(chatId), false)
             .ToListAsync();
 
-        public async Task<ChatMember> GetChatMemberByCustomerIdAsync(Guid customerId, bool trackChanges) =>
-            await FindByCondition(cm => cm.CustomerId.Equals(customerId), false)
+        public async Task<ChatMember> GetChatMemberByUserIdAsync(Guid userId, bool trackChanges) =>
+            await FindByCondition(cm => cm.UserId.Equals(userId), false)
             .FirstOrDefaultAsync();
     }
 }

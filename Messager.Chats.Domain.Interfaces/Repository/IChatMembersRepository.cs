@@ -11,7 +11,7 @@ namespace Messager.Chats.Domain.Interfaces.Repositories.Repository
     {
         Task AddChatMemberAsync(ChatMember chatMember);
         Task<IEnumerable<ChatMember>> GetChatMembersAsync(Guid chatId, bool trackChanges);
-        Task<ChatMember> GetChatMemberByCustomerIdAsync(Guid customerId, bool trackChanges);
+        Task<ChatMember> GetChatMemberByUserIdAsync(Guid userId, bool trackChanges);
         void DeleteChatMember(ChatMember chatMember);
     }
 }

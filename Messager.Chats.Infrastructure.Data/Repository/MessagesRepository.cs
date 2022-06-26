@@ -26,12 +26,12 @@ namespace Messager.Chats.Infrastructure.Data.Repository
             await FindByCondition(m => m.ChatId.Equals(chatId), trackChanges)
             .ToListAsync();
 
-        public async Task<IEnumerable<Message>> GetCustomerMessagesAsync(Guid customerId, bool trackChanges) =>
-            await FindByCondition(m => m.SenderId.Equals(customerId), trackChanges)
+        public async Task<IEnumerable<Message>> GetUserMessagesAsync(Guid userId, bool trackChanges) =>
+            await FindByCondition(m => m.SenderId.Equals(userId), trackChanges)
             .ToListAsync();
 
-        public async Task<IEnumerable<Message>> GetCustomerMessagesFromChatAsync(Guid customerId, Guid chatId, bool trackChanges) =>
-            await FindByCondition(m => m.ChatId.Equals(chatId)&& m.SenderId.Equals(customerId), trackChanges)
+        public async Task<IEnumerable<Message>> GetUserMessagesFromChatAsync(Guid userId, Guid chatId, bool trackChanges) =>
+            await FindByCondition(m => m.ChatId.Equals(chatId)&& m.SenderId.Equals(userId), trackChanges)
             .ToListAsync();
 
         public async Task<Message> GetMessageByIdAsync(Guid id, bool trackChanges) =>

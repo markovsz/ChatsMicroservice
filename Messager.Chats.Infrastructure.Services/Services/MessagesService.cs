@@ -41,9 +41,9 @@ namespace Messager.Chats.Infrastructure.Services.Services
             return messagesDto;
         }
 
-        public async Task<IEnumerable<MessageForReadDto>> GetCustomerMessagesFromChatAsync(Guid customerId, Guid chatId)
+        public async Task<IEnumerable<MessageForReadDto>> GetUserMessagesFromChatAsync(Guid userId, Guid chatId)
         {
-            var messages = await _repositoryManager.Messages.GetCustomerMessagesFromChatAsync(customerId, chatId, false);
+            var messages = await _repositoryManager.Messages.GetUserMessagesFromChatAsync(userId, chatId, false);
             var messagesDto = _mapper.Map<IEnumerable<MessageForReadDto>>(messages);
             return messagesDto;
         }
