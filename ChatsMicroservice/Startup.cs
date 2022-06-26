@@ -26,6 +26,7 @@ namespace ChatsMicroservice
         {
             services.ConfigureDbContext(_configuration);
             services.ConfigureRepository();
+            services.AddAutoMapper(typeof(MappingProfile));
             services.ConfigureService();
             services.ConfigureActionFilters();
             services.AddControllers();
