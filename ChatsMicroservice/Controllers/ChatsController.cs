@@ -1,4 +1,5 @@
-﻿using Messager.Chats.Application.Services.DataTransferObjects;
+﻿using ChatsMicroservice.Filters;
+using Messager.Chats.Application.Services.DataTransferObjects;
 using Messager.Chats.Application.Services.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,9 +36,9 @@ namespace ChatsMicroservice.Controllers
         }
 
         [HttpPost()]
-        public async Task<IActionResult> CreateChatAsync([FromBody] ChatForReadDto chatDto, Guid userId)
+        public async Task<IActionResult> CreateChatAsync([FromBody] ChatForCreateDto chatDto, Guid userId)
         {
-            var chatId = await _chatsService.CreateChatAsync(chatDto);
+            var chatId = await _chatsService.CreateChatAsync(userId, chatDto);
             return CreatedAtRoute("GetChat", new { id = chatId });
         }
 
@@ -50,7 +51,7 @@ namespace ChatsMicroservice.Controllers
 
 
         [HttpGet()]
-        public async Task<IActionResult> GetUserChatsAsync(Guid userId)
+        public async Task<IActionResult> GetUserChatsAуsync(Guid userId)
         {
             var chats = await _chatsService.GetUserChatsAsync(userId);
             return Ok(chats);
