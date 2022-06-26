@@ -27,6 +27,7 @@ namespace ChatsMicroservice
             services.ConfigureDbContext(_configuration);
             services.ConfigureRepository();
             services.AddAutoMapper(typeof(MappingProfile));
+            services.ConfigureJwt(_configuration);
             services.ConfigureService();
             services.ConfigureActionFilters();
             services.AddControllers();
@@ -41,6 +42,9 @@ namespace ChatsMicroservice
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
