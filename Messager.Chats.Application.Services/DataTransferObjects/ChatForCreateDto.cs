@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Messager.Chats.Application.Services.DataTransferObjects
 {
-    public class ChatForReadDto
+    public class ChatForCreateDto
     {
         public string Name { get; set; }
         public bool IsPrivate { get; set; }
