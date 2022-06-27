@@ -21,6 +21,7 @@ namespace ChatsMicroservice.Controllers
             _chatsService = chatsService;
         }
 
+        [ServiceFilter(typeof(ExtractUserIdFilter))]
         [HttpPost("join/{invitationKey}")]
         public async Task<IActionResult> JoinChatAsync(Guid userId, string invitationKey)
         {
@@ -28,6 +29,7 @@ namespace ChatsMicroservice.Controllers
             return Ok();
         }
 
+        [ServiceFilter(typeof(ExtractUserIdFilter))]
         [HttpPost("leave/{chatId}")]
         public async Task<IActionResult> LeaveChatAsync(Guid userId, Guid chatId)
         {
@@ -35,6 +37,7 @@ namespace ChatsMicroservice.Controllers
             return Ok();
         }
 
+        [ServiceFilter(typeof(ExtractUserIdFilter))]
         [HttpPost()]
         public async Task<IActionResult> CreateChatAsync([FromBody] ChatForCreateDto chatDto, Guid userId)
         {
@@ -49,7 +52,7 @@ namespace ChatsMicroservice.Controllers
             return Ok(chats);
         }
 
-
+        [ServiceFilter(typeof(ExtractUserIdFilter))]
         [HttpGet()]
         public async Task<IActionResult> GetUserChatsAуsync(Guid userId)
         {

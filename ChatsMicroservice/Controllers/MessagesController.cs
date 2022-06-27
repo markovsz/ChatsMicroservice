@@ -1,4 +1,5 @@
-﻿using Messager.Chats.Application.Services.DataTransferObjects;
+﻿using ChatsMicroservice.Filters;
+using Messager.Chats.Application.Services.DataTransferObjects;
 using Messager.Chats.Application.Services.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,7 @@ namespace ChatsMicroservice.Controllers
             return CreatedAtRoute("GetMessage", new { id = messageId });
         }
 
+        [ServiceFilter(typeof(ExtractUserIdFilter))]
         [HttpGet("chat/{chatId}/member/{userId}")]
         public async Task<IActionResult> GetUserMessagesFromChatAsync(Guid userId, Guid chatId)
         {
