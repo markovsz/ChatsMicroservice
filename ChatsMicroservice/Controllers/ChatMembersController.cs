@@ -1,5 +1,6 @@
 ﻿using Messager.Chats.Application.Services.DataTransferObjects;
 using Messager.Chats.Infrastructure.Services.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,6 +21,7 @@ namespace ChatsMicroservice.Controllers
             _chatMembersService = chatMembersService;
         }
 
+        [Authorize(Roles = "Customer,Administrator")]
         [HttpPost()]
         public async Task<IActionResult> AddChatMemberAsync(ChatMemberForCreateDto chatMember)
         {
@@ -27,6 +29,7 @@ namespace ChatsMicroservice.Controllers
             return CreatedAtRoute("GetChatMember", new { id = chatMemberId });
         }
 
+        [Authorize(Roles = "Customer,Administrator")]
         [HttpGet("chat/{chatId}")]
         public async Task<IActionResult> GetChatMembersAsync(Guid chatId)
         {
@@ -34,6 +37,7 @@ namespace ChatsMicroservice.Controllers
             return Ok(chatMembers);
         }
 
+        [Authorize(Roles = "Customer,Administrator")]
         [HttpGet("/chat/{chatId}/member/{userId}", Name = "GetChatMember")]
         public async Task<IActionResult> GetChatMemberByUserIdAsync(Guid chatId, Guid userId, bool trackChanges)
         {
@@ -41,6 +45,7 @@ namespace ChatsMicroservice.Controllers
             return Ok(chatMember);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("/chat/{chatId}/member/{userId}")]
         public async Task<IActionResult> DeleteChatMemberByUserIdAsync(Guid chatId, Guid userId)
         {

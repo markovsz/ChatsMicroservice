@@ -1,6 +1,7 @@
 ﻿using ChatsMicroservice.Filters;
 using Messager.Chats.Application.Services.DataTransferObjects;
 using Messager.Chats.Application.Services.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,6 +22,7 @@ namespace ChatsMicroservice.Controllers
             _chatsService = chatsService;
         }
 
+        [Authorize(Roles = "Customer,Administrator")]
         [ServiceFilter(typeof(ExtractUserIdFilter))]
         [HttpPost("join/{invitationKey}")]
         public async Task<IActionResult> JoinChatAsync(Guid userId, string invitationKey)
@@ -29,6 +31,7 @@ namespace ChatsMicroservice.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Customer,Administrator")]
         [ServiceFilter(typeof(ExtractUserIdFilter))]
         [HttpPost("leave/{chatId}")]
         public async Task<IActionResult> LeaveChatAsync(Guid userId, Guid chatId)
@@ -37,6 +40,7 @@ namespace ChatsMicroservice.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Customer,Administrator")]
         [ServiceFilter(typeof(ExtractUserIdFilter))]
         [HttpPost()]
         public async Task<IActionResult> CreateChatAsync([FromBody] ChatForCreateDto chatDto, Guid userId)
@@ -45,6 +49,7 @@ namespace ChatsMicroservice.Controllers
             return CreatedAtRoute("GetChat", new { id = chatId });
         }
 
+        [Authorize(Roles = "Customer")]
         [HttpGet("all")]
         public async Task<IActionResult> GetChatsAsync()
         {
@@ -52,6 +57,7 @@ namespace ChatsMicroservice.Controllers
             return Ok(chats);
         }
 
+        [Authorize(Roles = "Customer,Administrator")]
         [ServiceFilter(typeof(ExtractUserIdFilter))]
         [HttpGet()]
         public async Task<IActionResult> GetUserChatsAуsync(Guid userId)
@@ -60,7 +66,7 @@ namespace ChatsMicroservice.Controllers
             return Ok(chats);
         }
 
-
+        [Authorize(Roles = "Customer")]
         [HttpGet("{chatId}", Name = "GetChat")]
         public async Task<IActionResult> GetChatByIdAsync(Guid chatId)
         {
@@ -68,6 +74,7 @@ namespace ChatsMicroservice.Controllers
             return Ok(chat);
         }
 
+        [Authorize(Roles = "Customer,Administrator")]
         [HttpPut("{chatId}")]
         public async Task<IActionResult> UpdateChat(Guid chatId, ChatForUpdateDto chatDto)
         {
@@ -75,6 +82,7 @@ namespace ChatsMicroservice.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{chatId}")]
         public async Task<IActionResult> DeleteChatByIdAsync(Guid chatId)
         {

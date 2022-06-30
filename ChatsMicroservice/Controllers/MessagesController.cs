@@ -1,6 +1,7 @@
 ﻿using ChatsMicroservice.Filters;
 using Messager.Chats.Application.Services.DataTransferObjects;
 using Messager.Chats.Application.Services.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,6 +22,7 @@ namespace ChatsMicroservice.Controllers
             _messagesService = messagesService;
         }
 
+        [Authorize(Roles = "Customer,Administrator")]
         [HttpPost()]
         public async Task<IActionResult> CreateMessageAsync(MessageForCreateDto messageDto)
         {
@@ -28,6 +30,7 @@ namespace ChatsMicroservice.Controllers
             return CreatedAtRoute("GetMessage", new { id = messageId });
         }
 
+        [Authorize(Roles = "Customer,Administrator")]
         [ServiceFilter(typeof(ExtractUserIdFilter))]
         [HttpGet("chat/{chatId}/member/{userId}")]
         public async Task<IActionResult> GetUserMessagesFromChatAsync(Guid userId, Guid chatId)
@@ -36,6 +39,7 @@ namespace ChatsMicroservice.Controllers
             return Ok(messages);
         }
 
+        [Authorize(Roles = "Customer,Administrator")]
         [HttpGet("chat/{chatId}")]
         public async Task<IActionResult> GetChatMessagesAsync(Guid chatId)
         {
@@ -43,6 +47,7 @@ namespace ChatsMicroservice.Controllers
             return Ok(messages);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpGet("{messageId}", Name = "GetMessage")]
         public async Task<IActionResult> GetMessageByIdAsync(Guid messageId)
         {
@@ -50,6 +55,7 @@ namespace ChatsMicroservice.Controllers
             return Ok(message);
         }
 
+        [Authorize(Roles = "Customer")]
         [HttpPut("{messageId}")]
         public IActionResult UpdateMessage(Guid messageId, MessageForUpdateDto messageDto)
         {
@@ -57,6 +63,7 @@ namespace ChatsMicroservice.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Customer,Administrator")]
         [HttpDelete("{messageId}")]
         public async Task<IActionResult> DeleteMessageByIdAsync(Guid messageId)
         {
