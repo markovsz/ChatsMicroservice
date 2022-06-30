@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32510.428
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatsMicroservice", "ChatsMicroservice\ChatsMicroservice.csproj", "{15ABB84A-E517-491B-8CB4-45528AAF6BD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messager.Chats.API", "ChatsMicroservice\Messager.Chats.API.csproj", "{15ABB84A-E517-491B-8CB4-45528AAF6BD7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messager.Chats.Domain.Core", "Messager.Chats.Domain.Core\Messager.Chats.Domain.Core.csproj", "{FC28E95F-9EB0-441A-A546-BA3E9642979A}"
 EndProject
@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messager.Chats.Domain.Inter
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messager.Chats.Application.Services", "Messager.Chats.Application.Services\Messager.Chats.Application.Services.csproj", "{4B7B3F80-1C4A-4B8E-BFBC-8A07431AF5F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messager.Chats.Infrastructure.Data", "Messager.Chats.Infrastructure.Data\Messager.Chats.Infrastructure.Data.csproj", "{8939453E-AA5E-4F97-93BE-2B227CB2DDA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messager.Chats.Infrastructure.Data", "Messager.Chats.Infrastructure.Data\Messager.Chats.Infrastructure.Data.csproj", "{8939453E-AA5E-4F97-93BE-2B227CB2DDA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messager.Chats.Infrastructure.Services", "Messager.Chats.Infrastructure.Services\Messager.Chats.Infrastructure.Services.csproj", "{98830701-742E-4004-805A-A15EA75F886D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messager.Chats.Infrastructure.Services", "Messager.Chats.Infrastructure.Services\Messager.Chats.Infrastructure.Services.csproj", "{98830701-742E-4004-805A-A15EA75F886D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
