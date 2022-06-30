@@ -23,7 +23,7 @@ namespace ChatsMicroservice
         public static void ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<RepositoryContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("sqlConnection"), 
-                b => b.MigrationsAssembly("TelephoneNetworkProvider")));
+                b => b.MigrationsAssembly("Messager.Chats.Infrastructure.Data")));
         }
 
         public static void ConfigureRepository(this IServiceCollection services)
