@@ -24,14 +24,24 @@ namespace Messager.Chats.Infrastructure.Data
             modelBuilder.Entity<Chat>()
                 .HasKey(c => c.Id);
 
+            modelBuilder.Entity<Chat>()
+                .Property(c => c.Id)
+                .ValueGeneratedOnAdd();
+
+
             modelBuilder.Entity<Message>()
                 .HasKey(m => m.Id);
+
+            modelBuilder.Entity<Message>()
+                .Property(m => m.Id)
+                .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.MessageChat)
                 .WithMany(c => c.ChatMessages)
                 .HasForeignKey(m => m.ChatId)
-                .OnDelete(DeleteBehavior.Cascade); /*!*/
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             modelBuilder.Entity<ChatMember>()
                 .HasKey(cm => cm.UserId);
