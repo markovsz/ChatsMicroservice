@@ -22,12 +22,16 @@ namespace Messager.Chats.Infrastructure.Data.Repository
         public void DeleteChatMember(ChatMember chatMember) =>
             Delete(chatMember);
 
-        public async Task<IEnumerable<ChatMember>> GetChatMembersAsync(Guid chatId, bool trackChanges) =>
+        public async Task<IEnumerable<ChatMember>> GetChatMembersAsync(Guid chatId) =>
             await FindByCondition(cm => cm.ChatId.Equals(chatId), false)
             .ToListAsync();
 
         public async Task<ChatMember> GetChatMemberByUserIdAsync(Guid chatId, Guid userId, bool trackChanges) =>
-            await FindByCondition(cm => cm.UserId.Equals(userId) && cm.ChatId.Equals(chatId), false)
+            await FindByCondition(cm => cm.UserId.Equals(userId) && cm.ChatId.Equals(chatId), trackChanges)
             .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<ChatMember>> GetChatMembersByUserIdAsync(Guid userId) =>
+            await FindByCondition(cm => cm.UserId.Equals(userId), false)
+            .ToListAsync();
     }
 }

@@ -10,8 +10,9 @@ namespace Messager.Chats.Domain.Interfaces.Repositories.Repository
     public interface IChatMembersRepository
     {
         Task AddChatMemberAsync(ChatMember chatMember);
-        Task<IEnumerable<ChatMember>> GetChatMembersAsync(Guid chatId, bool trackChanges);
+        Task<IEnumerable<ChatMember>> GetChatMembersAsync(Guid chatId);
         Task<ChatMember> GetChatMemberByUserIdAsync(Guid chatId, Guid userId, bool trackChanges);
+        Task<IEnumerable<ChatMember>> GetChatMembersByUserIdAsync(Guid userId);
         void DeleteChatMember(ChatMember chatMember);
     }
 }

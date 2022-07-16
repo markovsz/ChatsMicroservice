@@ -24,18 +24,26 @@ namespace Messager.Chats.Infrastructure.Data.Repository
             Delete(chat);
 
         public async Task<Chat> GetChatByIdAsync(Guid chatId, bool trackChanges) =>
-            await FindByCondition(c => c.Id.Equals(chatId), false)
+            await FindByCondition(c => c.Id.Equals(chatId) && !c.IsPrivate, trackChanges)
             .FirstOrDefaultAsync();
 
-        public async Task<Chat> GetChatByInvitaionKeyAsync(string invitationKey, bool trackChanges) =>
+        public async Task<Chat> GetChatByIdIncludePrivateAsync(Guid chatId, bool trackChanges) =>
+            await FindByCondition(c => c.Id.Equals(chatId), trackChanges)
+            .FirstOrDefaultAsync();
+
+        public async Task<Chat> GetChatByInvitaionKeyAsync(string invitationKey) =>
             await FindByCondition(c => c.InvitationKey.Equals(invitationKey), false)
             .FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<Chat>> GetChatsAsync(bool trackChanges) =>
+        public async Task<IEnumerable<Chat>> GetChatsAsync() =>
+            await FindByCondition(c => !c.IsPrivate, false)
+            .ToListAsync();
+
+        public async Task<IEnumerable<Chat>> GetChatsIncludePrivateAsync() =>
             await FindAll(false)
             .ToListAsync();
 
-        public async Task<IEnumerable<Chat>> GetUserChatsAsync(Guid userId, bool trackChanges) =>
+        public async Task<IEnumerable<Chat>> GetUserChatsAsync(Guid userId) =>
             await FindAll(false)
             .Include(c => c.ChatMembers)
             .Where(c => c.ChatMembers.Where(cm => cm.UserId.Equals(userId)).Count() > 0)
