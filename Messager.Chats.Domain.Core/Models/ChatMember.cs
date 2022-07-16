@@ -15,6 +15,7 @@ namespace Messager.Chats.Domain.Core.Models
             EntryTime = DateTime.Now;
         }
 
+        public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public Guid ChatId { get; set; }
         public DateTime EntryTime { get; set; }

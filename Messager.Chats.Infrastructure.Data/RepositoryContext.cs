@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +45,11 @@ namespace Messager.Chats.Infrastructure.Data
 
 
             modelBuilder.Entity<ChatMember>()
-                .HasKey(cm => cm.UserId);
+                .Property(cm => cm.Id)
+                .HasDefaultValueSql("NEWID()");
+
+            modelBuilder.Entity<ChatMember>()
+                .HasKey(cm => cm.Id);
 
             modelBuilder.Entity<ChatMember>()
                 .HasOne(cm => cm.UserChat)
