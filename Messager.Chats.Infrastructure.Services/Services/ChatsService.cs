@@ -20,14 +20,16 @@ namespace Messager.Chats.Infrastructure.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<Guid> CreateChatAsync(Guid userId, ChatForCreateDto chatDto)
+        public async Task<ChatForReadDto> CreateChatAsync(Guid userId, ChatForCreateDto chatDto)
         {
             var chat = _mapper.Map<Chat>(chatDto);
             await _repositoryManager.Chats.CreateChatAsync(chat);
             await _repositoryManager.SaveAsync();
             var chatMember = new ChatMember(userId, chat.Id);
             await _repositoryManager.ChatMembers.AddChatMemberAsync(chatMember);
-            return chat.Id;
+            await _repositoryManager.SaveAsync();
+            var createdChatDto = _mapper.Map<ChatForReadDto>(chat);
+            return createdChatDto;
         }
 
         public async Task DeleteChatByIdAsync(Guid chatId)
@@ -37,30 +39,44 @@ namespace Messager.Chats.Infrastructure.Services.Services
             await _repositoryManager.SaveAsync();
         }
 
-        public async Task<ChatForReadDto> GetChatByIdAsync(Guid id)
+        public async Task<ChatForReadDto> GetChatByIdAsync(Guid chatId)
         {
-            var chat = await _repositoryManager.Chats.GetChatByIdAsync(id, false);
+            var chat = await _repositoryManager.Chats.GetChatByIdAsync(chatId, false);
+            var chatDto = _mapper.Map<ChatForReadDto>(chat);
+            return chatDto;
+        }
+
+        public async Task<ChatForReadDto> GetChatByIdIncludePrivateAsync(Guid chatId)
+        {
+            var chat = await _repositoryManager.Chats.GetChatByIdIncludePrivateAsync(chatId, false);
             var chatDto = _mapper.Map<ChatForReadDto>(chat);
             return chatDto;
         }
 
         public async Task<IEnumerable<ChatForReadDto>> GetChatsAsync()
         {
-            var chats = await _repositoryManager.Chats.GetChatsAsync(false);
+            var chats = await _repositoryManager.Chats.GetChatsAsync();
+            var chatsDto = _mapper.Map<IEnumerable<ChatForReadDto>>(chats);
+            return chatsDto;
+        }
+
+        public async Task<IEnumerable<ChatForReadDto>> GetChatsIncludePrivateAsync()
+        {
+            var chats = await _repositoryManager.Chats.GetChatsIncludePrivateAsync();
             var chatsDto = _mapper.Map<IEnumerable<ChatForReadDto>>(chats);
             return chatsDto;
         }
 
         public async Task<IEnumerable<ChatForReadDto>> GetUserChatsAsync(Guid userId)
         {
-            var chats = await _repositoryManager.Chats.GetUserChatsAsync(userId, false);
+            var chats = await _repositoryManager.Chats.GetUserChatsAsync(userId);
             var chatsDto = _mapper.Map<IEnumerable<ChatForReadDto>>(chats);
             return chatsDto;
         }
 
         public async Task JoinChatAsync(Guid userId, string invitationKey)
         {
-            var chat = await _repositoryManager.Chats.GetChatByInvitaionKeyAsync(invitationKey, false);
+            var chat = await _repositoryManager.Chats.GetChatByInvitaionKeyAsync(invitationKey);
             var chatMember = new ChatMember(userId, chat.Id);
             await _repositoryManager.ChatMembers.AddChatMemberAsync(chatMember);
             await _repositoryManager.SaveAsync();

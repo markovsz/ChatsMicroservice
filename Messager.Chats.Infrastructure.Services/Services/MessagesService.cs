@@ -20,12 +20,14 @@ namespace Messager.Chats.Infrastructure.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<Guid> CreateMessageAsync(MessageForCreateDto messageDto)
+        public async Task<MessageForReadDto> CreateMessageAsync(MessageForCreateDto messageDto)
         {
             var message = _mapper.Map<Message>(messageDto);
+            message.SendingTime = DateTime.Now;
             await _repositoryManager.Messages.CreateMessageAsync(message);
             await _repositoryManager.SaveAsync();
-            return message.Id;
+            var messageCreatedDto = _mapper.Map<MessageForReadDto>(message);
+            return messageCreatedDto;
         }
 
         public async Task DeleteMessageByIdAsync(Guid messageId)
@@ -37,14 +39,14 @@ namespace Messager.Chats.Infrastructure.Services.Services
 
         public async Task<IEnumerable<MessageForReadDto>> GetChatMessagesAsync(Guid chatId)
         {
-            var messages = await _repositoryManager.Messages.GetChatMessagesAsync(chatId, false);
+            var messages = await _repositoryManager.Messages.GetChatMessagesAsync(chatId);
             var messagesDto = _mapper.Map<IEnumerable<MessageForReadDto>>(messages);
             return messagesDto;
         }
 
         public async Task<IEnumerable<MessageForReadDto>> GetUserMessagesFromChatAsync(Guid userId, Guid chatId)
         {
-            var messages = await _repositoryManager.Messages.GetUserMessagesFromChatAsync(userId, chatId, false);
+            var messages = await _repositoryManager.Messages.GetUserMessagesFromChatAsync(userId, chatId);
             var messagesDto = _mapper.Map<IEnumerable<MessageForReadDto>>(messages);
             return messagesDto;
         }

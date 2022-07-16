@@ -9,9 +9,10 @@ namespace Messager.Chats.Application.Services.Services
 {
     public interface IChatMembersService
     {
-        Task<Guid> AddChatMemberAsync(ChatMemberForCreateDto chatMember);
+        Task<ChatMemberForReadDto> AddChatMemberAsync(ChatMemberForCreateDto chatMember);
         Task<IEnumerable<ChatMemberForReadDto>> GetChatMembersAsync(Guid chatId);
         Task<ChatMemberForReadDto> GetChatMemberByUserIdAsync(Guid chatId, Guid userId);
         Task DeleteChatMemberByUserIdAsync(Guid chatId, Guid userId);
+        Task DeleteChatMembersByUserIdAsync(Guid userId);
     }
 }

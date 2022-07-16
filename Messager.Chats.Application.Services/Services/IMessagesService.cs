@@ -7,7 +7,7 @@ namespace Messager.Chats.Application.Services.Services
 {
     public interface IMessagesService
     {
-        Task<Guid> CreateMessageAsync(MessageForCreateDto messageDto);
+        Task<MessageForReadDto> CreateMessageAsync(MessageForCreateDto messageDto); //CreatedMessageDto
         Task<IEnumerable<MessageForReadDto>> GetUserMessagesFromChatAsync(Guid userId, Guid chatId);
         Task<IEnumerable<MessageForReadDto>> GetChatMessagesAsync(Guid chatId);
         Task<MessageForReadDto> GetMessageByIdAsync(Guid id);

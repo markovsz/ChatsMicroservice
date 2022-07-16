@@ -9,10 +9,12 @@ namespace Messager.Chats.Application.Services.Services
     {
         Task JoinChatAsync(Guid userId, string invitationKey);
         Task LeaveChatAsync(Guid userId, Guid chatId);
-        Task<Guid> CreateChatAsync(Guid userId, ChatForCreateDto chatDto);
+        Task<ChatForReadDto> CreateChatAsync(Guid userId, ChatForCreateDto chatDto);
         Task<IEnumerable<ChatForReadDto>> GetChatsAsync();
+        Task<IEnumerable<ChatForReadDto>> GetChatsIncludePrivateAsync();
         Task<IEnumerable<ChatForReadDto>> GetUserChatsAsync(Guid userId);
         Task<ChatForReadDto> GetChatByIdAsync(Guid chatId);
+        Task<ChatForReadDto> GetChatByIdIncludePrivateAsync(Guid chatId);
         Task UpdateChat(Guid chatId, ChatForUpdateDto chatDto);
         Task DeleteChatByIdAsync(Guid chatId);
     }
