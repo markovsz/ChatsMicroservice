@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 
-namespace ChatsMicroservice.Filters
+namespace Messager.Chats.API.Filters
 {
     public class ExtractUserIdFilter : IActionFilter
     {
@@ -19,7 +19,9 @@ namespace ChatsMicroservice.Filters
         {
             var action = context.RouteData.Values["action"];
             var controller = context.RouteData.Values["controller"];
-            var userIdClaim = context.HttpContext.User.Claims.Where(c => c.Type.Equals(ClaimTypes.NameIdentifier)).FirstOrDefault();
+            var userIdClaim = context.HttpContext.User.Claims
+                .Where(c => c.Type.Equals(ClaimTypes.NameIdentifier))
+                .FirstOrDefault();
             Guid userId;
             Guid.TryParse(userIdClaim.Value, out userId);
             context.ActionArguments.Add("userId", userId); /*!*/
