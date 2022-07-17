@@ -1,15 +1,13 @@
-﻿using ChatsMicroservice.Filters;
+﻿using Messager.Chats.API.Filters;
 using Messager.Chats.Application.Services.DataTransferObjects;
 using Messager.Chats.Application.Services.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace ChatsMicroservice.Controllers
+namespace Messager.Chats.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -45,34 +43,48 @@ namespace ChatsMicroservice.Controllers
         [HttpPost()]
         public async Task<IActionResult> CreateChatAsync([FromBody] ChatForCreateDto chatDto, Guid userId)
         {
-            var chatId = await _chatsService.CreateChatAsync(userId, chatDto);
-            return CreatedAtRoute("GetChat", new { id = chatId });
+            var createdChatDto = await _chatsService.CreateChatAsync(userId, chatDto);
+            //var res = CreatedAtAction("GetChat", new { chatId = chatId });
+            return Created($"api/Chats/{createdChatDto.Id}", createdChatDto);
         }
 
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Customer,Administrator")]
+        [ServiceFilter(typeof(ExtractRoleFilter))]
         [HttpGet("all")]
-        public async Task<IActionResult> GetChatsAsync()
+        public async Task<IActionResult> GetChatsAsync(string userRole)
         {
-            var chats = await _chatsService.GetChatsAsync();
+            IEnumerable<ChatForReadDto> chats = null;
+            if (userRole.Equals("Customer"))
+                chats = await _chatsService.GetChatsAsync();
+            else if (userRole.Equals("Administrator"))
+                chats = await _chatsService.GetChatsIncludePrivateAsync();
             return Ok(chats);
         }
+
 
         [Authorize(Roles = "Customer,Administrator")]
         [ServiceFilter(typeof(ExtractUserIdFilter))]
         [HttpGet()]
-        public async Task<IActionResult> GetUserChatsAуsync(Guid userId)
+        public async Task<IActionResult> GetUserChatsAsync(Guid userId)
         {
             var chats = await _chatsService.GetUserChatsAsync(userId);
             return Ok(chats);
         }
 
-        [Authorize(Roles = "Customer")]
+
+        [Authorize(Roles = "Customer,Administrator")]
+        [ServiceFilter(typeof(ExtractRoleFilter))]
         [HttpGet("{chatId}", Name = "GetChat")]
-        public async Task<IActionResult> GetChatByIdAsync(Guid chatId)
+        public async Task<IActionResult> GetChatByIdAsync(Guid chatId, string userRole)
         {
-            var chat = await _chatsService.GetChatByIdAsync(chatId);
+            ChatForReadDto chat = null; 
+            if(userRole.Equals("Customer"))
+                chat = await _chatsService.GetChatByIdAsync(chatId);
+            else if(userRole.Equals("Administrator"))
+                chat = await _chatsService.GetChatByIdIncludePrivateAsync(chatId);
             return Ok(chat);
         }
+
 
         [Authorize(Roles = "Customer,Administrator")]
         [HttpPut("{chatId}")]

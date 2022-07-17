@@ -1,15 +1,12 @@
-﻿using ChatsMicroservice.Filters;
+﻿using Messager.Chats.API.Filters;
 using Messager.Chats.Application.Services.DataTransferObjects;
 using Messager.Chats.Application.Services.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace ChatsMicroservice.Controllers
+namespace Messager.Chats.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -26,8 +23,8 @@ namespace ChatsMicroservice.Controllers
         [HttpPost()]
         public async Task<IActionResult> CreateMessageAsync(MessageForCreateDto messageDto)
         {
-            var messageId = await _messagesService.CreateMessageAsync(messageDto);
-            return CreatedAtRoute("GetMessage", new { id = messageId });
+            var messageCreatedDto = await _messagesService.CreateMessageAsync(messageDto);
+            return Created($"api/Messages/{messageCreatedDto.Id}", messageCreatedDto);
         }
 
         [Authorize(Roles = "Customer,Administrator")]
