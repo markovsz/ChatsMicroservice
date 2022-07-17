@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ChatsMicroservice.Filters;
+﻿using Messager.Chats.API.Filters;
 using Messager.Chats.Application.Services.Services;
 using Messager.Chats.Domain.Interfaces.Repositories;
 using Messager.Chats.Domain.Interfaces.Repositories.Repository;
@@ -15,8 +10,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Text;
 
-namespace ChatsMicroservice
+namespace Messager.Chats.API
 {
     public static class ServiceExtentions
     {
