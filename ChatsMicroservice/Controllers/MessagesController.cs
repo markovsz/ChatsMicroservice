@@ -20,10 +20,11 @@ namespace Messager.Chats.API.Controllers
         }
 
         [Authorize(Roles = "Customer,Administrator")]
+        [ServiceFilter(typeof(ExtractUserIdFilter))]
         [HttpPost()]
-        public async Task<IActionResult> CreateMessageAsync(MessageForCreateDto messageDto)
+        public async Task<IActionResult> CreateMessageAsync(Guid userId, MessageForCreateDto messageDto)
         {
-            var messageCreatedDto = await _messagesService.CreateMessageAsync(messageDto);
+            var messageCreatedDto = await _messagesService.CreateMessageAsync(userId, messageDto);
             return Created($"api/Messages/{messageCreatedDto.Id}", messageCreatedDto);
         }
 
@@ -54,17 +55,18 @@ namespace Messager.Chats.API.Controllers
 
         [Authorize(Roles = "Customer")]
         [HttpPut("{messageId}")]
-        public IActionResult UpdateMessage(Guid messageId, MessageForUpdateDto messageDto)
+        public IActionResult UpdateMessage(Guid userId, Guid messageId, MessageForUpdateDto messageDto)
         {
-            _messagesService.UpdateMessage(messageId, messageDto);
+            _messagesService.UpdateMessage(userId, messageId, messageDto);
             return NoContent();
         }
 
         [Authorize(Roles = "Customer,Administrator")]
+        [ServiceFilter(typeof(ExtractUserIdFilter))]
         [HttpDelete("{messageId}")]
-        public async Task<IActionResult> DeleteMessageByIdAsync(Guid messageId)
+        public async Task<IActionResult> DeleteMessageByIdAsync(Guid userId, Guid messageId)
         {
-            await _messagesService.DeleteMessageByIdAsync(messageId);
+            await _messagesService.DeleteMessageByIdAsync(userId, messageId);
             return NoContent();
         }
     }
