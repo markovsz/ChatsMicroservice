@@ -1,4 +1,5 @@
 ﻿using Messager.Chats.Application.Services.DataTransferObjects;
+using Messager.Chats.Application.Services.Services;
 using Messager.Chats.Infrastructure.Services.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +12,9 @@ namespace Messager.Chats.API.Controllers
     [ApiController]
     public class ChatMembersController : ControllerBase
     {
-        private ChatMembersService _chatMembersService;
+        private IChatMembersService _chatMembersService;
 
-        public ChatMembersController(ChatMembersService chatMembersService)
+        public ChatMembersController(IChatMembersService chatMembersService)
         {
             _chatMembersService = chatMembersService;
         }
