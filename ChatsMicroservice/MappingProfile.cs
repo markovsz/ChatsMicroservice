@@ -20,6 +20,7 @@ namespace Messager.Chats.API
             CreateMap<ChatMemberForCreateDto, ChatMember>();
 
             CreateMap<Message, MessageForReadDto>();
+            CreateMap<Message, MessageCreatedForReadDto>();
             CreateMap<MessageForCreateDto, Message>();
             CreateMap<MessageForUpdateDto, Message>();
         }
