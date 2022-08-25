@@ -2,7 +2,7 @@
 using Messager.Chats.Application.Services.DataTransferObjects;
 using Messager.Chats.Domain.Core.Models;
 
-namespace Messager.Chats.API
+namespace Messager.Chats.Infrastructure.Services
 {
     public class MappingProfile : Profile
     {
