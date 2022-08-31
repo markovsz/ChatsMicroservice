@@ -10,7 +10,6 @@ namespace Messager.Chats.Application.Services.DataTransferObjects
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public bool IsPrivate { get; set; }
         public string InvitationKey { get; set; }
     }
 }

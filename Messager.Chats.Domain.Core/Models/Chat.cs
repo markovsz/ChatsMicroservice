@@ -7,7 +7,6 @@ namespace Messager.Chats.Domain.Core.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public bool IsPrivate { get; set; }
         public string InvitationKey { get; set; }
 
         public IEnumerable<Message> ChatMessages { get; set; }

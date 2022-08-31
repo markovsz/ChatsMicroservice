@@ -9,7 +9,6 @@ namespace Messager.Chats.Application.Services.DataTransferObjects
     public class ChatForUpdateDto
     {
         public string Name { get; set; }
-        public string IsPrivate { get; set; }
         public string InvitationKey { get; set; }
     }
 }
