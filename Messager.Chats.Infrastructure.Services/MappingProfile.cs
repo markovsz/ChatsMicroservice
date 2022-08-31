@@ -9,12 +9,8 @@ namespace Messager.Chats.Infrastructure.Services
         public MappingProfile()
         {
             CreateMap<Chat, ChatForReadDto>();
-            CreateMap<ChatForCreateDto, Chat>()
-                .ForMember(c => c.IsPrivate, c => c.Ignore())
-                .BeforeMap((cd, c) => c.IsPrivate = (cd.IsPrivate.Equals("true") ? true : false));
-            CreateMap<ChatForUpdateDto, Chat>()
-                .ForMember(c => c.IsPrivate, c => c.Ignore())
-                .BeforeMap((cd, c) => c.IsPrivate = (cd.IsPrivate.Equals("true") ? true : false));
+            CreateMap<ChatForCreateDto, Chat>();
+            CreateMap<ChatForUpdateDto, Chat>();
 
             CreateMap<ChatMember, ChatMemberForReadDto>();
             CreateMap<ChatMemberForCreateDto, ChatMember>();

@@ -46,23 +46,9 @@ namespace Messager.Chats.Infrastructure.Services.Services
             return chatDto;
         }
 
-        public async Task<ChatForReadDto> GetChatByIdIncludePrivateAsync(Guid chatId)
-        {
-            var chat = await _repositoryManager.Chats.GetChatByIdIncludePrivateAsync(chatId, false);
-            var chatDto = _mapper.Map<ChatForReadDto>(chat);
-            return chatDto;
-        }
-
         public async Task<IEnumerable<ChatForReadDto>> GetChatsAsync()
         {
             var chats = await _repositoryManager.Chats.GetChatsAsync();
-            var chatsDto = _mapper.Map<IEnumerable<ChatForReadDto>>(chats);
-            return chatsDto;
-        }
-
-        public async Task<IEnumerable<ChatForReadDto>> GetChatsIncludePrivateAsync()
-        {
-            var chats = await _repositoryManager.Chats.GetChatsIncludePrivateAsync();
             var chatsDto = _mapper.Map<IEnumerable<ChatForReadDto>>(chats);
             return chatsDto;
         }

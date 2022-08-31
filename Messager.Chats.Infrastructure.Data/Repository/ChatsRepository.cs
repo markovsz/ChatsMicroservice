@@ -24,10 +24,6 @@ namespace Messager.Chats.Infrastructure.Data.Repository
             Delete(chat);
 
         public async Task<Chat> GetChatByIdAsync(Guid chatId, bool trackChanges) =>
-            await FindByCondition(c => c.Id.Equals(chatId) && !c.IsPrivate, trackChanges)
-            .FirstOrDefaultAsync();
-
-        public async Task<Chat> GetChatByIdIncludePrivateAsync(Guid chatId, bool trackChanges) =>
             await FindByCondition(c => c.Id.Equals(chatId), trackChanges)
             .FirstOrDefaultAsync();
 
@@ -36,10 +32,6 @@ namespace Messager.Chats.Infrastructure.Data.Repository
             .FirstOrDefaultAsync();
 
         public async Task<IEnumerable<Chat>> GetChatsAsync() =>
-            await FindByCondition(c => !c.IsPrivate, false)
-            .ToListAsync();
-
-        public async Task<IEnumerable<Chat>> GetChatsIncludePrivateAsync() =>
             await FindAll(false)
             .ToListAsync();
 

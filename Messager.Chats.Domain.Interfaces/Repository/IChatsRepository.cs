@@ -11,10 +11,8 @@ namespace Messager.Chats.Domain.Interfaces.Repositories.Repository
     {
         Task CreateChatAsync(Chat chat);
         Task<IEnumerable<Chat>> GetChatsAsync();
-        Task<IEnumerable<Chat>> GetChatsIncludePrivateAsync();
         Task<IEnumerable<Chat>> GetUserChatsAsync(Guid userId);
         Task<Chat> GetChatByIdAsync(Guid chatId, bool trackChanges);
-        Task<Chat> GetChatByIdIncludePrivateAsync(Guid chatId, bool trackChanges);
         Task<Chat> GetChatByInvitaionKeyAsync(string invitationKey);
         void UpdateChat(Chat chat);
         void DeleteChat(Chat chat);
