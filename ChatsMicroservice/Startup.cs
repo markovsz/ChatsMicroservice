@@ -1,3 +1,4 @@
+using Messager.Chats.API.Middlewares;
 using Messager.Chats.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,6 +39,8 @@ namespace Messager.Chats.API
             }
 
             app.UseRouting();
+
+            app.UseMiddleware<CookieAuthorizationMiddleware>();
 
             app.UseAuthentication();
             app.UseAuthorization();
